@@ -1,5 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: "Aeron Chester Dino"
+date: "2023-03-19"
 output: 
   html_document:
     keep_md: true
@@ -8,11 +10,36 @@ output:
 
 ## Loading and preprocessing the data
 
-
+```{r, echo=TRUE}
+      setwd("c:/Users/Aeron/Desktop/Data Science/ReproducibleResearchProject1")
+      download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", destfile = "activity.zip")
+      unzip("activity.zip", exdir = "c:/Users/Aeron/Desktop/Data Science/ReproducibleResearchProject1")
+      activity <- read.csv("activity.csv", colClasses=c("numeric", "Date", "numeric"))
+      dim(activity)
+      str(activity)
+      head(activity)
+```
 
 ## What is mean total number of steps taken per day?
 
+```{r, echo=TRUE}
+    cleandata<-activity[!(is.na(activity$steps)), ]
+    totalStepsDay <- aggregate(steps ~ date, cleandata, sum)
+    # Create a histogram
+    jpeg("plot1.jpg", width = 800, height = 600)
+    hist(totalStepsDay$steps, breaks=20, xlab="Number of Steps Taken", 
+    main="Histogram of the Total Number of Steps Taken per Day", family="serif")
+    dev.off()
+      
+      # Calculate the mean and median
+      mean_steps_per_day <- mean(totalStepsDay$steps)
+      median_steps_per_day <- median(totalStepsDay$steps)
+      
+      # Print the mean and median
+    cat("Mean of total number of steps per day:", mean_steps_per_day, "\n")
+    cat("Median of total number of steps per day:", median_steps_per_day, "\n")
 
+```
 
 ## What is the average daily activity pattern?
 

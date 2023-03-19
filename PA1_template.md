@@ -75,7 +75,9 @@ output:
 ```
 
 ## Imputing missing values
+
 Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+
 
 ```r
       totalNA<-sum(rowSums(is.na(activity)) > 0)
@@ -145,6 +147,7 @@ imputed <- activity %>%
 ```
 ## Comparison of Two Histogram:
 
+
 ```r
     par(mfrow = c(1, 2))
     hist(totalStepsDay$steps, breaks=20, xlab="Number of Steps Taken", family="serif", ylim=c(0,20), main=NULL)
@@ -153,6 +156,8 @@ imputed <- activity %>%
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+
 The second histogram has a higher frequency than the first. This is due to the imputation of missing values.
 
 

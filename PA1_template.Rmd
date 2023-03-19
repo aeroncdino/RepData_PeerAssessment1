@@ -61,6 +61,43 @@ Calculate and report the total number of missing values in the dataset (i.e. the
       totalNA<-sum(rowSums(is.na(activity)) > 0)
       cat("The total number of missing values is", totalNA)
 ```
+## Creating new data set with imputed missing values.
+
+```{r, echo=TRUE}
+# Imputing NA
+library(dplyr)
+
+imputed <- activity %>%
+  group_by(interval) %>%
+  mutate(steps_imputed = ifelse(is.na(steps), mean(steps, na.rm = TRUE), steps))
+# Making histogram of Imputed Data
+  jpeg("plot3.jpg", width = 800, height = 600)
+  totalStepsDayImputed <- aggregate(steps_imputed ~ date, imputed, sum)
+  hist(totalStepsDayImputed$steps_imputed, breaks=20, xlab="Number of Steps Taken", 
+  main="Histogram of the Total Number of Steps Taken per Day", family="serif")
+  dev.off()
+ 
+# Calculate the mean and median
+  impmean_steps_per_day <- mean(totalStepsDayImputed$steps_imputed)
+  impmedian_steps_per_day <- median(totalStepsDayImputed$steps_imputed)
+      
+# Print the mean and median
+  cat("Mean of total number of steps per day:", impmean_steps_per_day, "\n")
+  cat("Median of total number of steps per day:", impmedian_steps_per_day, "\n")
+
+```
+## Comparison of Two Histogram:
+```{r, echo=TRUE}
+    jpeg("plot4.jpg", width = 1200, height = 800)
+    par(mfrow = c(1, 2))
+    hist(totalStepsDay$steps, breaks=20, xlab="Number of Steps Taken", family="serif", ylim=c(0,20), main=NULL)
+    hist(totalStepsDayImputed$steps_imputed, breaks=20, xlab="Number of Steps Taken",family="serif", ylim=c(0,20), main=NULL)
+    mtext("Histograms of Total Number of Steps Taken per Day, Without/With Imputed Values",adj=0.95, family="serif", font=2)
+    dev.off()
+      
+```
+The second histogram has a higher frequency than the first. This is due to the imputation of missing values.
+
 
 
 ## Are there differences in activity patterns between weekdays and weekends?

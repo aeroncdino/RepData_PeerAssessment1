@@ -11,13 +11,11 @@ output:
 ## Loading and preprocessing the data
 
 ```{r, echo=TRUE}
-      setwd("c:/Users/Aeron/Desktop/Data Science/ReproducibleResearchProject1")
+      setwd("c:/Users/Aeron/Desktop/Data Science/RepData_PeerAssessment1")
       download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", destfile = "activity.zip")
-      unzip("activity.zip", exdir = "c:/Users/Aeron/Desktop/Data Science/ReproducibleResearchProject1")
-      activity <- read.csv("activity.csv", colClasses=c("numeric", "Date", "numeric"))
-      dim(activity)
-      str(activity)
-      head(activity)
+      unzip("activity.zip", exdir = "c:/Users/Aeron/Desktop/Data Science/RepData_PeerAssessment1")
+      activity <- read.csv("activity.csv", colClasses=c("numeric", "Date", "numeric")
+      
 ```
 
 ## What is mean total number of steps taken per day?

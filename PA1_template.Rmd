@@ -101,3 +101,27 @@ The second histogram has a higher frequency than the first. This is due to the i
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+```{r, echo=TRUE}
+# Creating new factor variables
+library(dplyr)
+
+    activity_Weekend <- activity %>%
+    mutate( is_Weekend = ifelse(weekdays(date) %in% c("Saturday", "Sunday"), "Weekend", "Weekday"))
+ 
+library(ggplot2)
+library(dplyr)
+
+    avg_steps <- activity_Weekend %>%
+    group_by(interval, is_Weekend) %>%
+    summarise(mean_steps = mean(steps, na.rm = TRUE))
+    jpeg("plot5.jpg", width = 800, height = 600)
+    ggplot(avg_steps, aes(x = interval, y = mean_steps)) +
+    geom_line() +
+    facet_wrap(~is_Weekend, ncol = 1) +
+    xlab("5-Minute Interval") +
+    ylab("Average Number of Steps") +
+    ggtitle("Average Number of Steps Taken by Interval and Day Type")
+    dev.off()
+
+```
